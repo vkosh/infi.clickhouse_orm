@@ -254,3 +254,11 @@ class Distributed(Engine):
         if self.sharding_key:
             params.append(self.sharding_key)
         return params
+
+
+class Dictionary(Engine):
+    def __init__(self, name):
+        self.name = name
+
+    def create_table_sql(self, db):
+        return 'Dictionary(%s)' % self.name
