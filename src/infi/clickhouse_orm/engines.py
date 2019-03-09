@@ -128,6 +128,22 @@ class CollapsingMergeTree(MergeTree):
         return params
 
 
+class VersionedCollapsingMergeTree(MergeTree):
+
+    def __init__(self, date_col=None, order_by=(), sign_col='sign', ver_col='version', sampling_expr=None,
+                 index_granularity=8192, replica_table_path=None, replica_name=None, partition_key=None):
+        super(VersionedCollapsingMergeTree, self).__init__(date_col, order_by, sampling_expr, index_granularity,
+                                                           replica_table_path, replica_name, partition_key)
+        self.sign_col = sign_col
+        self.ver_col = ver_col
+
+    def _build_sql_params(self, db):
+        params = super(VersionedCollapsingMergeTree, self)._build_sql_params(db)
+        params.append(self.sign_col)
+        params.append(self.ver_col)
+        return params
+
+
 class SummingMergeTree(MergeTree):
 
     def __init__(self, date_col=None, order_by=(), summing_cols=None, sampling_expr=None,
