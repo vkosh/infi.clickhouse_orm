@@ -437,7 +437,6 @@ class AggregateQuerySet(QuerySet):
         At least one calculated field is required.
         """
         super(AggregateQuerySet, self).__init__(base_qs._model_cls, base_qs._database)
-        assert calculated_fields, 'No calculated fields specified for aggregation'
         self._fields = grouping_fields
         self._grouping_fields = grouping_fields
         self._calculated_fields = calculated_fields
