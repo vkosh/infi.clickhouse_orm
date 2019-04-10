@@ -190,7 +190,9 @@ class Model(with_metaclass(ModelBase)):
         parts = ['CREATE TABLE IF NOT EXISTS `%s`.`%s` (' % (db.db_name, cls.table_name())]
         cols = []
         for name, field in iteritems(cls.fields()):
-            cols.append('    %s %s' % (name, field.get_sql()))
+            sql = field.get_sql()
+            if sql:
+                cols.append('    %s %s' % (name, sql))
         parts.append(',\n'.join(cols))
         parts.append(')')
         parts.append('ENGINE = ' + cls.engine.create_table_sql(db))
