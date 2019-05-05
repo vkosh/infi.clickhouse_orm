@@ -97,4 +97,4 @@ def comma_join(items):
     """
     Joins an iterable of strings with commas.
     """
-    return ', '.join(items)
+    return ', '.join([str(x) for x in items])
