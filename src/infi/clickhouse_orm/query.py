@@ -73,7 +73,7 @@ class LikeOperator(Operator):
     def to_sql(self, model_cls, field_name, value):
         field = getattr(model_cls, field_name)
         value = field.to_db_string(field.to_python(value, pytz.utc), quote=False)
-        value = value.replace('\\', '\\\\').replace('%', '\\\\%').replace('_', '\\\\_')
+        value = value.replace('%', '\\%').replace('_', '\\_')
         pattern = self._pattern.format(value)
         if self._case_sensitive:
             return '%s LIKE \'%s\'' % (field_name, pattern)
